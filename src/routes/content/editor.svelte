@@ -1,7 +1,6 @@
 <script lang="ts">
   import Record from "$lib/entities/creating/record.svelte"
-  import Monaco from "$lib/monaco/monaco.svelte";
-  import { setContext } from "svelte";
+  import Monaco from "$lib/monaco/monaco.svelte"
   
   let {
     currentEntity,
@@ -30,6 +29,3 @@
     <Monaco fileName={selectedEntityId} />
   </div>
 </div>
-
-
-<!--<MonacoEditor fileName="requisite3" />-->

@@ -1,16 +1,12 @@
 <script lang="ts">
-  import { page } from "$app/stores";
-	import selectedEntity from '$lib/currentEntity.svelte';
+  import { page } from "$app/stores"
+  import selectedEntity from '$lib/currentEntity.svelte'
+
   type SelectedEntity = typeof selectedEntity
-  import Editor from './editor.svelte'
   const data: SelectedEntity['subEntityName'][] = [
     'Реквизиты', 'Табличные части', 'Формы'
   ]
-
-  //let url = $derived()
-
-  let url = $page.url.searchParams.get('entity')
-
+  
   $effect(() => {
     console.log("page", $page.url.searchParams)
   })
@@ -29,10 +25,6 @@
       onclick={() => { selectedEntity.subEntityName = entity; console.log('uuu', $page.url.searchParams.set('subentity', entity))}}>{entity}</a>
   {/each}
 </div>
-
-
-<!--   <Editor /> -->
-
 
 <style>
   .active {

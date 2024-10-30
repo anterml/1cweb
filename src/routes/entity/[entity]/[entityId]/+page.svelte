@@ -1,13 +1,13 @@
 <script lang="ts">
   import { entityData, type EntityItem } from '$lib/stores/entityData.svelte'
   import { page } from '$app/stores'
-
-	const { data } = $props()
+  
+  const { data } = $props()
 
   let currentEntity = $derived(entityData.find(entity => entity.id === data.params.entityId))
   let nameElem: HTMLInputElement | null
 
-  const tabs = ["Резквизиты", "Табличная часть", "Формы"]
+  const tabs = ["Реквизиты", "Табличная часть", "Формы"]
 
   $inspect(data)
 
@@ -30,8 +30,6 @@
       currentEntity!.name = target.value
     }
   }
-
-
 </script>
 
 <div>
