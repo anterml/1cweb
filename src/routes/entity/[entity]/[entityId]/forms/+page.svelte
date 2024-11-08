@@ -17,9 +17,8 @@
   })
 
 </script>
-<div>hello {currentRequisite && currentRequisite.id}</div>
+
 <div class="grid grid-cols-[1fr_2fr] h-full border-t border-solid border-gray-400">
   <Content requisites={data.requisites} currentRequisite={currentRequisite}/>
-<!--   <Content requisites={data.requisites} bind:currentRequisite={currentRequisite} />
- -->  <Editor requisite={currentRequisite}/>
+  <Editor requisite={currentRequisite}/>
 </div>
