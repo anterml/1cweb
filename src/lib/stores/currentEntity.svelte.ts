@@ -1,6 +1,6 @@
-function createCurrentEntity() {
-  type SubEntityKeys = "Реквизиты" | "Формы" | "Табличные части"
+import type { EntityKeys, SubEntityKeys } from '$lib/types/entity'
 
+function createCurrentEntity() {
   type CurrentEntity = {
     entityName: EntityKeys,
     subEntityName: SubEntityKeys | "",
