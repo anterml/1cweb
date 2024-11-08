@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import type { Requisite } from "$lib/constants/settings"
-  import { pushState, replaceState, goto, invalidate } from "$app/navigation"
+  import { pushState, goto } from "$app/navigation"
   import Content from './content/content.svelte'
   import Settings from './settings.svelte'
   import { langStore, langsData } from "$lib/stores/lang.svelte"
