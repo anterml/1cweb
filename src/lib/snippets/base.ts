@@ -3,5 +3,5 @@ export function calcTotal(a: number, b: number) {
 }
 
 export function upper(text: string) {
-  return text.toUpperCase() + "|||"
+  return text.toUpperCase()
 }
