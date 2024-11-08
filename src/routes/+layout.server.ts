@@ -25,7 +25,7 @@ export const load: LayoutServerLoad = async () => {
     return result
   }
 
-	return {
-		entities: await entites(),
-	};
-};
+  return {
+    entities: await entites(),
+  }
+}
