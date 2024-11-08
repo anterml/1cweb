@@ -10,17 +10,14 @@
 
   let {
     requisites,
-    currentRequisite/// = $bindable(),
+    currentRequisite,
   }: Props = $props()
   
-  $inspect($page.state)
   function selectRequisite(e: MouseEvent) {
     const target = e.target as HTMLInputElement
     const id = target.dataset.id as string
-    //currentRequisite = requisites.find(req => req.id === id)
     const currentRequisite2 = requisites.find(req => req.id === id)
     if(currentRequisite2) {
-      console.log("currentrequisite", id)
       const params = $page.url.searchParams
       params.set("requisiteId", id)
       replaceState("?" + params.toString(), {})
@@ -31,18 +28,7 @@
 <div class="list1 flex flex-col scroll-y">
   {#each requisites as requisite}
     {@const selected = requisite.id === currentRequisite?.id}
-<!--     <div class={`relative px-4 py-2
-      ${selected ? 'bg-gray-300' : ''}`}> -->
     <div class={`container-padding list1-item relative snap-start ${selected ? 'active' : ''}`}>
-      <!--
-        <div onclick={() => copyRequisite(requisite.name)} class='mb-2'>
-      -->
-<!--       <div
-        class='cursor-pointer text-gray-900 font-medium hover:text-black'
-        onclick={selectRequisite}
-        data-id={requisite.id}>
-        {requisite.name} {requisite.id}
-      </div> -->
       <div
         class='cursor-pointer font-medium hover:text-black'
         onclick={selectRequisite}

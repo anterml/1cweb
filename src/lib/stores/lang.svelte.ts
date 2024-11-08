@@ -36,7 +36,6 @@ export const langsData: LangsData = {
   },
 }
 
-
 function createLangStore(name: LangName = 'ru') {
   let store = $state<LangName>(name)
 

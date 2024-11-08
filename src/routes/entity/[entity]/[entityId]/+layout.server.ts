@@ -15,7 +15,6 @@ export type Requisite = {
   settings: Setting
 }
 
-
 type MongoRequisite = Omit<Requisite, 'id'> & { _id: string }
 
 export const load: LayoutServerLoad = async ({ params, url }) => {
@@ -24,7 +23,7 @@ export const load: LayoutServerLoad = async ({ params, url }) => {
     const { entityId } = params
 
     if(!entityId)
-      return error(404, { message: "No entityId" })
+      return error(404, { message: "EntityId not found" })
     
     const requisites = await Requisites.find({ entityId }).lean() as MongoRequisite[]
 
@@ -32,11 +31,11 @@ export const load: LayoutServerLoad = async ({ params, url }) => {
     if(!requisiteId) {
       // есть другие реквизиты - изменяем на первый в списке
       if(requisites.length) {
-        //console.log("Реквизит не передан, выбираем первый в списке")
+        // Реквизит не передан, выбираем первый в списке
         url.searchParams.set('requisiteId', requisites[0]._id)
         return redirect(301, url)
       } else {
-        //console.log("Реквизит не передан и у сущности их нет")
+        // Реквизиты отсутствуют
         return []
       }
     }

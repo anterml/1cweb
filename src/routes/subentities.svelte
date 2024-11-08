@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { EntityKeys } from '$lib/types/entity'
   let { currentEntity }: { currentEntity: EntityKeys } = $props()
 
   const subentities: Record<EntityKeys, string[]> = {
@@ -7,6 +8,9 @@
   }
 </script>
 
-<div>
-  {subentities[currentEntity].join(",")}
+<div class="line">
+  <div class="py-1 py-2">Свойства</div>
+  {#each subentities[currentEntity] as entity}
+    <div>{entity}</div>
+  {/each}
 </div>

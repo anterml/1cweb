@@ -5,16 +5,15 @@
 </script>
 
 <button style={`
-  --button-color: var(--my-color-${name});
-  --button-bgcolor: var(--my-bgcolor-${name});`
-}>
+  --button-color: var(--main-color-${name});
+  --button-bgcolor: var(--main-bgcolor-${name});`}>
   {@render children()}
 </button>
 
 <style>
   button {
-    color: var(--button-color, 'blue');
-    background-color: var(--button-bgcolor, 'green');
-    padding: var(--my-px)
+    color: var(--button-color);
+    background-color: var(--button-bgcolor);
+    padding: var(--main-px);
   }
 </style>

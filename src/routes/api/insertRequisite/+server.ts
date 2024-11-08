@@ -1,9 +1,7 @@
 
 import type { RequestHandler } from './$types'
-import { error } from '@sveltejs/kit'
-import { fail, json } from '@sveltejs/kit'
+import { error, json } from '@sveltejs/kit'
 import RequisitesDB from '$lib/db/models/requisites'
-
 
 export type Setting = 
 | { name: "Строка", type: 'text', len: number }
@@ -17,7 +15,6 @@ const settings: Setting[] = [
 ]
 
 export type Requisite = { id: string, entityId: string, name: string, title: string, settings: Setting }
-
 
 const data: Omit<Requisite, 'id'>[] = [
   {

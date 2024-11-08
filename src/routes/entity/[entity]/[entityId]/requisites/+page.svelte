@@ -6,7 +6,7 @@
   import Settings from './settings.svelte'
   import { langStore, langsData } from "$lib/stores/lang.svelte"
   import type { PageStateNewRequisite } from "./types"
-
+  
   let { data } = $props()
 
   let currentRequisite = $derived<Requisite | undefined>(
@@ -31,28 +31,7 @@
         }
       } 
     }
-    
   }
-
-  /* let prevEntityId: string = ''
-  $effect(() => {
-    if(data.params.entityId !== prevEntityId) {
-      const params = new URLSearchParams(window.location.search)
-      const requisite = data.requisites.find(value => value.id === params.get("requisiteId"))
-      //currentRequisite = requisite || data.requisites[0]
-      prevEntityId = data.params.entityId
-    }
-  }) */
-
-  $effect(() => {
-    const params = $page.url.searchParams//new URLSearchParams(window.location.search)
-    const id = currentRequisite?.id
-    const result = id !== params.get('requisiteId')
-    console.log('hello', id, params.get("requisiteId"))
-    if(result) {
-      console.log("NOT EQUAL")
-    }
-  })
 
   async function addRequisite() {
     let maxNumberSuffix = 0
@@ -66,7 +45,7 @@
     }
 
     const name = prefixName + (++maxNumberSuffix)
-    console.log("name", name)
+
     try {
       const response = await fetch(`/api/addRequisite?entityId=${data.params.entityId}&name=${name}`)
       const result: { requisite: Requisite & { _id: string } } = await response.json()
@@ -85,15 +64,15 @@
   }
 </script>
 <div class="container-padding">
-  <button class="btn btn-primary" onclick={addRequisite}>add requisite</button>
-  <button class="btn btn-primary" onclick={removeRequisite}>remove requisite</button>
+  <button class="btn btn-primary" onclick={addRequisite}>Добавить реквизит</button>
+  <button class="btn btn-primary" onclick={removeRequisite}>Удалить реквизит</button>
 </div>
 <div class="layout grid grid-cols-[1fr_2fr] h-full border-t border-solid border-gray-400">
   <Content requisites={data.requisites} currentRequisite={currentRequisite} />
   {#if currentRequisite}
     <Settings requisite={currentRequisite}/>
   {:else}
-    <div>No data</div>
+    <div>Нет данных</div>
   {/if}
 </div>
 

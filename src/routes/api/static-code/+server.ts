@@ -22,10 +22,6 @@ export const POST: RequestHandler = async ({ url, request }) => {
     return error(400, `fileName ${fileName} is missing.`)
 
   const text = await new Response(request.body).text()
-
-  console.log("save code in file", fileName)
-  console.log('body', text)
-
   //await writeFile(`./src/lib/types/${fileName}.ts`, text)
   await writeFile(`./src/lib/types/${fileName}.ts`, text)
   return new Response("ok")

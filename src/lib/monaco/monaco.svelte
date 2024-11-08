@@ -31,8 +31,6 @@
   })
 
   onMount(async () => {
-    // Import our 'monaco.ts' file here
-    // (onMount() will only be executed in the browser, which is what we want)
     monaco = (await import('./monaco')).default
 
     monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
@@ -47,10 +45,6 @@
       module: monaco.languages.typescript.ModuleKind.CommonJS,
       noEmit: true,
       esModuleInterop: true,
-      //typeRoots: ["types"],
-      //noLib: true,
-      //lib: ['ESNext']
-      //rootDir: "$lib/"
     })
 
     const code = await loadStaticCode(fileName)
@@ -60,18 +54,9 @@
       }
     })
     
-
     const model = monaco.editor.createModel(code, 'typescript')
     editor.setModel(model)
-    //console.log('uid', crypto.randomUUID())
   })
-
-  function check() {
-    setInterval(() => {
-      
-      console.log('focus', editor.hasTextFocus())
-    },3000)
-  }
 
   onDestroy(() => {
     monaco?.editor.getModels().forEach((model) => model.dispose())
@@ -93,9 +78,7 @@
 </script>
 
 
-
 <div class="flex flex-col">
-  <div>id {fileName} <button onclick={check}>chekc focus ++</button></div>
   <div class="px-8">
     <button class='px-2 py-0.5 rounded border-solid border-black border mr-2 my-3' onclick={updateEditorCode}>Update</button>
     <button class='px-2 py-0.5 rounded border-solid border-black border' onclick={saveEditorCode}>Save</button>

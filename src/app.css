@@ -3,28 +3,36 @@
 @tailwind utilities;
 
 :root {
-  --my-global-color: red;
-  --my-global-bgcolor: black;
+  --main-color-primary: white;
+  --main-color-secondary: gray;
+  --main-bgcolor-primary: #222;
+  --main-bgcolor-secondary: #e09812;
 
-  --my-color-primary: white;
-  --my-color-secondary: gray;
-  --my-bgcolor-primary: black;
-  --my-bgcolor-secondary: orange;
-  --my-py: 3px;
-  --my-px: 8px;
-  --my-rounded-3: 3px;
-  --my-rounded-6: 6px;
-  --my-rounded-10: 6px;
-  --my-border-default: 1px solid #333;
+  --color1: #efefef;
+  --color2: #6d74ed;
+  --color3: #202e59;
+  --color4: #303f6d;
+
+  --surface-base-color: oklch(97% 0 0);
+  --surface-color1: oklch(from var(--surface-base-color) calc(l - 0.05) c h);
+  --surface-color2: oklch(from var(--surface-base-color) calc(l - 0.1) c h);
+  --surface-color3: oklch(from var(--surface-base-color) calc(l - 0.15) c h);
 
   --clr-text-primary: oklch(25% 0 0);
   --clr-text-secondary: oklch(100% 0 0);
-  --bg: oklch(97% 0 0);
 
   --container-padding-y: 1rem;
   --container-padding-x: 1.25rem;
+
   --margin-x: var(--container-padding-x);
   --margin-y: var(--container-padding-y);
+
+  --main-py: 3px;
+  --main-px: 8px;
+
+  --main-rounded-sm: 3px;
+  --main-rounded-md: 6px;
+  --main-rounded-lg: 10px;
 
   --button-bg-primary: white;
   --button-bg-secondary: #1d4ed8;
@@ -37,16 +45,7 @@
   --font-size: 14px;
   --font-weight: 500;
 
-
-  --color1: #9553e9;
-  --color1: #efefef;
-  --color2: #6d74ed;
-  --color3: #202e59;
-  --color4: #303f6d;
-
-  --surface-color1: oklch(from var(--bg) calc(l - 0.05) c h);
-  --surface-color2: oklch(from var(--bg) calc(l - 0.1) c h);
-  --surface-color3: oklch(from var(--bg) calc(l - 0.15) c h);
+  --main-border-default: 1px solid #333;
 
   --scroll-snap-align-start: start;
   --scroll-snap-align-initial: initial;
@@ -63,8 +62,26 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: Circe;
+  src: url(fonts/Circe-400.woff2);
+}
+
+@font-face {
+  font-family: Circe;
+  src: url(fonts/Circe-900.woff2);
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Circe;
+  src: url(fonts/Circe-300.woff2);
+  font-weight: 300;
+}
+
 html {
-  background-color: var(--bg);
+  background-color: var(--surface-base-color);
+  font-family: Circe;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -195,6 +212,7 @@ html {
 .-container-margin-b {
   margin: 0 0 calc(var(--container-padding-y) * -1) 0;
 }
+
 
 .input-elem {
   margin-bottom: var(--margin-y);

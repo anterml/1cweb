@@ -43,9 +43,7 @@
       console.log('requisite2', requisite)
     }
   }
-
-
-
+  
   $inspect($page.state)
 </script>
 

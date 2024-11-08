@@ -4,8 +4,6 @@ import { error, json } from '@sveltejs/kit'
 import EntityDB from '$lib/db/models/entity'
 
 export const GET: RequestHandler = async ({ url }) => {
-  // const id = new mongoose.Types.ObjectId()
-  // return new Response(id.toString())
   const type = url.searchParams.get('type')
   const name = url.searchParams.get('name')
 
@@ -27,4 +25,3 @@ export const GET: RequestHandler = async ({ url }) => {
     return error(400, { message: "Не получилось добавить данные"})
   }
 }
-

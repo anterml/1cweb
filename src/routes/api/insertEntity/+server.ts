@@ -73,12 +73,12 @@ export const GET: RequestHandler = async ({ url }) => {
   if(uniqueData.length) {
     try {
       await EntityDB.insertMany(uniqueData)
-      return json({ message: "ok", inserted: uniqueData.length }, { status: 201 });
+      return json({ message: "Данные добавлены", inserted: uniqueData.length }, { status: 201 });
     } catch(e) {
       return error(400, { message: "Не получилось добавить данные"})
     }
   }
   
-  return json({ message: "nothing to insert" }, { status: 200 });
+  return json({ message: "Нет данных для вставки" }, { status: 200 });
 };
 

@@ -1,6 +1,7 @@
 <script lang="ts">
   import Record from "$lib/entities/creating/record.svelte"
   import Monaco from "$lib/monaco/monaco.svelte"
+  import type { EntityKeys } from '$lib/types/entity'
   
   let {
     currentEntity,

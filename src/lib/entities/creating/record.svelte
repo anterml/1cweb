@@ -1,37 +1,17 @@
 <script lang="ts">
-  type Setting = 
-    | { name: "Строка", type: 'text', len: number }
-    | { name: "Число", type: 'number', len: number, precision: number, negative: boolean }
-
+  import type { Setting } from '$lib/constants/settings'
+  
   const settings: Setting[] = [
     { name: "Строка", type: 'text', len: 50 },
     { name: "Число", type: 'number', len: 10, precision: 0, negative: false }
   ]
-
-  let idRecord = '9318d874-7673-42ff-b2d1-256aff3a9236'
 
   type Requsite = { id: string, name: string, title: string, settings: Setting }
   
   let { changeSelectedEntityId }:
       { changeSelectedEntityId: (value: string) => void } = $props()
 
-  let requisites = $state<Requsite[]>([
-    {
-      id: '130bb5e2-f6ba-4a82-8e94-e5eae0a4cecb',
-      name: "Наименование",
-      title: "",
-      settings: { ...settings[0] }},
-    { id: 'dcba5e63-1b31-4efe-b6ff-483ba003b082',
-      name: "Цена",
-      title: "",
-      settings: { ...settings[1] }
-    },
-    { id: '7de13b42-96d5-4f10-9d05-d643f6e999c3',
-      name: "Количество",
-      title: "",
-      settings: { ...settings[1] }
-    },
-  ])
+  let requisites = $state<Requsite[]>([])
 
   let currentInputElem = $state<HTMLInputElement | null>()
   let contentElem = $state<HTMLElement | null>()
@@ -47,8 +27,6 @@
   })
 
   $effect(() => {
-    console.log('effect')
-    
     // поставить на инпут фокус и выделить название реквизита, если еще не редактировали
     const startsWith = (selectedRequisite?.name || "").startsWith(requisiteName + "_")
     if(startsWith && currentInputElem) {
@@ -60,8 +38,6 @@
     if(contentElem)
       contentElem.scrollTop = 0
   })
-
-  //$inspect(requisites)
 
   function changeRequisiteName(e: Event) {
     const target = e.target as HTMLInputElement

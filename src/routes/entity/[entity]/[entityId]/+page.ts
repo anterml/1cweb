@@ -1,9 +1,9 @@
-import type { PageLoad } from './$types';
+import type { PageLoad } from './$types'
 
 export const load: PageLoad = async ({ params, parent }) => {
-  //const { myparams } = await parent();
+  //const parentData = await parent()
   return {
-    //myparams,
+    // parentParams: parentData.params,
     params,
   }
 }

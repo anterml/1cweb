@@ -1,9 +1,8 @@
 <script lang="ts">
   import Content from "./content.svelte"
   import Editor from "./editor.svelte"
-  import { page } from "$app/stores";
+  import { page } from "$app/stores"
   import type { Requisite } from "$lib/constants/settings"
-  import { replaceState } from "$app/navigation";
   let { data } = $props()
 
   let currentRequisite = $derived<Requisite | undefined>(
@@ -13,9 +12,6 @@
 
   $effect(() => {
     if(data.params.entityId !== prevEntityId) {
-      const params = new URLSearchParams(window.location.search)
-      const requisite = data.requisites.find(value => value.id === params.get("requisiteId"))
-      //currentRequisite = requisite || data.requisites[0]
       prevEntityId = data.params.entityId
     }
   })

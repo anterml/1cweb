@@ -1,10 +1,4 @@
-export type EntityEngKeys = "spravochniki" | "documenti"
-
-export type EntityItem = {
-  id: string, //`${string}-${string}-${string}-${string}-${string}`,
-  type: EntityEngKeys,
-  name: string,
-}
+import type { EntityItem } from "$lib/types/entity"
 
 function generageEntityData(): EntityItem[] {
   return [

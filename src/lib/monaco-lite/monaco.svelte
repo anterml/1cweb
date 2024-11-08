@@ -52,7 +52,6 @@
     },
   }
 
-
   let loadedModules = $state<LoadedModule>({})
   let modulesCode: Record<string, string> = {}
 
@@ -63,19 +62,8 @@
       }
 
       if(loadedModules[requisite.id]) {
-        //console.log('setvalue', modulesCode[fileName])
         editor.setValue(modulesCode[requisite.id].replace('$lib', 'file:///src/lib'))
-        //console.log("INJECT OBSERVER")
         injectObserveFields(editor.getValue())
-        console.log("ENJEct")
-
-/*         registerCompletion = {
-          type: 'input',
-          value: monaco.languages.registerCompletionItemProvider(
-            'typescript',
-            registerCompletionItemProvider(monaco, 'input')
-          )
-        } */
         prevModuleName = requisite.id
       } else {
         loadStaticCode(requisite.id).then(data => {
@@ -90,11 +78,9 @@
 
   $effect(() => {
     const id = requisite.id
-    const value = onlyNumberInputs.value
     if(editor && loadedModules[id]) {
       if(registerCompletion)
         registerCompletion.value.dispose()
-      console.log("---- update editor")
       registerCompletion = {
         type: 'input',
         value: monaco.languages.registerCompletionItemProvider(
@@ -111,8 +97,6 @@
   }
 
   onMount(async () => {
-    // Import our 'monaco.ts' file here
-    // (onMount() will only be executed in the browser, which is what we want)
     monaco = (await import('./monaco')).default
 
     monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
@@ -127,20 +111,11 @@
       module: monaco.languages.typescript.ModuleKind.CommonJS,
       noEmit: true,
       esModuleInterop: true,
-      //typeRoots: ["types"],
-      //noLib: true,
-      //lib: ['ESNext']
-      //rootDir: "/hello"
     })
-
-    
 
     const value = editorInjectData.value
     const onlyNumbers = onlyNumberInputs.value
     getExtraLib(value, onlyNumbers)
-
-    // Register the completion provider
-    console.log('register')
 
     const globalCode = await loadGlobalCode('base')
     monaco.languages.typescript.typescriptDefaults.addExtraLib(globalCode, 'file:///src/lib/snippets/base.ts')
@@ -169,16 +144,11 @@
         enabled: false
       }
     })
-    
 
     const model = monaco.editor.createModel(code.replace('$lib', 'file:///src/lib'), 'typescript')
     editor.setModel(model)
 
-    
-    //onDidChangeModelContent
     model.onDidChangeContent(event => {
-      //console.log('change', requisite.id, prevModuleName)
-
       if(requisite.id === prevModuleName) {
         loadedModules[requisite.id].changed = true
         injectObserveFields(editor.getValue())
@@ -206,11 +176,6 @@
       }
       export {}
     `
-    /* if(value) {
-      console.log('SETVALUE', value)
-    } else {
-      console.log('DEFULt', value)
-    } */
     
     monaco.languages.typescript.typescriptDefaults.addExtraLib(
       text,
@@ -222,13 +187,10 @@
   function getExtraLib(value: string[], onlyNumbers: string[]) {
     const inputNames = value.map(name => `'${name}'`).join(" | ")
     const onlyNumberNames = onlyNumbers.map(name => `'${name}'`).join(" | ")
-
-    //console.log('update monaco', inputNames)
     if(monaco) {
-      //console.log('add lib')
       monaco.languages.typescript.typescriptDefaults.addExtraLib(
         `declare global {
-          type EK = "Справочники5" | "Документы"
+          type EK = "Справочники" | "Документы"
           type InputName = ${inputNames}
           type OnlyNumberName = ${onlyNumberNames}
           type Input = HTMLInputElement & { readonly value: string }
@@ -237,7 +199,6 @@
         export {}`,
         'file:///src/record.d.ts'
       )
-      //addOnFormInputExtraLib()
     }
   }
 
@@ -287,7 +248,7 @@
       class='px-2 py-0.5 rounded border-solid border-black border text-red-500 disabled:text-gray-400'
       disabled={!loadedModules[requisite.id]?.changed}
       onclick={saveEditorCode}>
-      Save
+      Сохранить
   </button>
   </div>
   <div class="container flex-auto border-1 border-solid border-gray-500" bind:this={editorContainer}></div>

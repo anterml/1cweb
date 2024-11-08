@@ -3,13 +3,10 @@
   import { page } from '$app/stores'
   
   const { data } = $props()
+  const tabs = ["Реквизиты", "Табличная часть", "Формы"]
 
   let currentEntity = $derived(entityData.find(entity => entity.id === data.params.entityId))
   let nameElem: HTMLInputElement | null
-
-  const tabs = ["Реквизиты", "Табличная часть", "Формы"]
-
-  $inspect(data)
 
   $effect(() => {
     if(currentEntity && nameElem) {

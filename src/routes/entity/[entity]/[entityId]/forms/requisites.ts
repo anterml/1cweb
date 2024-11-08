@@ -9,8 +9,13 @@ const settings: Setting[] = [
   { name: "Чекбокс", type: 'checkbox', enabled: false },
 ]
 
-export type Requisite = { id: string, entityId: string, name: string, title: string, settings: Setting }
-
+export type Requisite = {
+  id: string,
+  entityId: string,
+  name: string,
+  title: string,
+  settings: Setting,
+}
 
 export let requisiteData: Requisite[] = [
   {

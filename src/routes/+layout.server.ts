@@ -1,13 +1,7 @@
 import EntityDB from '$lib/db/models/entity'
 import type { LayoutServerLoad } from './$types'
-
-type EntityEngKeys = "spravochniki" | "documenti"
-
-type EntityItem = {
-  id: string,
-  type: EntityEngKeys,
-  name: string,
-}
+import type { EntityEngKeys, EntityItem } from "$lib/stores/entityData.svelte"
+import type { EntityItem } from "$lib/types/entity"
 
 type MongoEntityItem = Omit<EntityItem, 'id'> & { _id: string }
 
@@ -31,7 +25,7 @@ export const load: LayoutServerLoad = async () => {
     return result
   }
 
-  return {
-    entities: await entites(),
-  }
-}
+	return {
+		entities: await entites(),
+	};
+};
