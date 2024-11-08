@@ -62,26 +62,8 @@
   box-sizing: border-box;
 }
 
-@font-face {
-  font-family: Circe;
-  src: url(fonts/Circe-400.woff2);
-}
-
-@font-face {
-  font-family: Circe;
-  src: url(fonts/Circe-900.woff2);
-  font-weight: bold;
-}
-
-@font-face {
-  font-family: Circe;
-  src: url(fonts/Circe-300.woff2);
-  font-weight: 300;
-}
-
 html {
   background-color: var(--surface-base-color);
-  font-family: Circe;
 }
 
 @media (prefers-reduced-motion: no-preference) {
