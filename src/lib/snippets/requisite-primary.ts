@@ -6,10 +6,11 @@ function convertToNumber(value: string) {
   return parseInt(value)
 }
 
+const MAX_NUMBER = 100
 function isValid(value: number) {
-  return value > 100 ? 100 : value
+  return value > MAX_NUMBER ? MAX_NUMBER : value
 }
 
 export function onclick(elem: HTMLInputElement) {
-  console.log('elem type', elem.type)
+  alert(`Выбран тип: ${elem.type}`)
 }
