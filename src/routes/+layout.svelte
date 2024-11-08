@@ -2,13 +2,13 @@
   import "../app.css"
   import { subentityUrl } from '$lib/stores/subentityUrl.svelte'
   import { goto } from '$app/navigation'
-  import { page } from "$app/stores";
+  import { page } from "$app/stores"
   import { type EntityEngKeys, entityData } from "$lib/stores/entityData.svelte"
   import { langStore, LANGS, type LangName } from "$lib/stores/lang.svelte"
 
   let { children, data } = $props()
 
-  const langEng2ru = {
+  const langEng2ru: Record<EntityEngKeys, string> = {
     spravochniki: "Справочники",
     documenti: "Документы",
   }
@@ -40,11 +40,10 @@
     goto(split.join("/"))
   }
 
-  let myindex = 0
+  let contextItemIndex = 0
   // --- EntityPortal
   let entityPortal: HTMLElement;
   let entityPortalVisible = $state<boolean>(false)
-
   let currentEntityName: EntityEngKeys | undefined;
 
   function showEntityPortal(e: MouseEvent) {
@@ -56,10 +55,8 @@
     entityPortal.style.display = ''
     currentEntityName = target.dataset.name as EntityEngKeys
     target.append(entityPortal)
-    setTimeout(() => {
-      const elem = entityPortal.children[0]
-      elem && (elem as HTMLElement).focus()
-    }, 1)
+    const elem = entityPortal.children[0]
+    elem && (elem as HTMLElement).focus()
   }
 
   function hideEntityPortal() {
@@ -78,16 +75,15 @@
       return console.log('arrow', e.key, e.key !== 'ArrowDown', e.key !== 'ArrowUp')
 
     const count = entityPortal.children.length
-    myindex += e.key === 'ArrowDown' ? 1 : -1
+    contextItemIndex += e.key === 'ArrowDown' ? 1 : -1
 
-    let i = (myindex % count)
+    let i = (contextItemIndex % count)
     if(i < 0)
       i += count
 
     const elem = entityPortal.children[i] as HTMLElement
     elem?.focus()
   }
-
 
   function createEntity(e: Event) {
     e.preventDefault()
@@ -100,7 +96,6 @@
   }
 
   async function addEntity(eventName: string) {
-    console.log('add entity', eventName, currentEntityName)
     if(!currentEntityName)
       return
 
@@ -152,11 +147,11 @@
   }
 
   function selectSubentity(e: Event) {
-    console.log(e.target)
+    // to do
   }
 
   function addSubentity(e: Event) {
-    // todo
+    // to do
   }
 
   function preventContextMenu(e: MouseEvent) {
@@ -165,9 +160,8 @@
   }
 
   function handleGlobalClick(e: MouseEvent) {
-    //entityPortal.parentElement?.hasAttribute('data-contextmenu')
     entityPortal.style.display = 'none'
-    myindex = 0
+    contextItemIndex = 0
   }
   
   // Смена языка
@@ -181,19 +175,17 @@
 <div class="grid grid-cols-[250px_1fr] h-screen" onclick={handleGlobalClick}>
   <div class="container-padding side-panel">
     <!-- Смена языка -->
-    <div class="">
-      <select onchange={changeLang}>
-        {#each langNames as lang}
-          <option value={lang} selected={lang === langStore.name}>
-            {LANGS[lang]}
-          </option>
-        {/each}
-      </select>
-    </div>
-    
-    <div><a href="/">Index</a></div>
-    <div><a href="/content">Content</a></div>
-    <div><a href="/htmlcomponents">HTMLComponents</a></div>
+    <select onchange={changeLang}>
+      {#each langNames as lang}
+        <option value={lang} selected={lang === langStore.name}>
+          {LANGS[lang]}
+        </option>
+      {/each}
+    </select>
+
+    <div><a href="/">Главная</a></div>
+    <div><a href="/content">Контент</a></div>
+    <div><a href="/htmlcomponents">HTML компоненты</a></div>
 
     <ul
       onclick={selectSubentity}
@@ -202,12 +194,10 @@
       tabindex="0"
       class={`${subentityPortalVisible ? 'block' : 'hidden'} z-10 bg-white absolute top-2 right-2 border border-solid border-black p-3`}
       bind:this={subentityPortal}>
-      something
-      <li role="menuitem" tabindex="0">Add requisite</li>
-      <!--commment-->
-      <li role="menuitem" tabindex="0">Do something</li>
+      <li role="menuitem" tabindex="0">Добавить реквизит</li>
+      <li role="menuitem" tabindex="0">Добавить документ</li>
     </ul>
-    
+
     <div class="h-0.5 my-2 bg-slate-500"></div>
 
     <ul
@@ -220,8 +210,8 @@
       bind:this={entityPortal}>
       <li class="rounded-sm px-2 py-1 hover:bg-slate-400" role="menuitem" tabindex="0" data-event="create">Добавить</li>
       <li class="rounded-sm px-2 py-1 hover:bg-slate-400" role="menuitem" tabindex="0" data-event="properties">Свойства</li>
-      <li class="rounded-sm px-2 py-1 hover:bg-slate-400" role="menuitem" tabindex="0" data-event="properties">Свойства1</li>
-      <li class="rounded-sm px-2 py-1 hover:bg-slate-400" role="menuitem" tabindex="0" data-event="properties">Свойства2</li>
+      <li class="rounded-sm px-2 py-1 hover:bg-slate-400" role="menuitem" tabindex="0" data-event="properties">Заголовок</li>
+      <li class="rounded-sm px-2 py-1 hover:bg-slate-400" role="menuitem" tabindex="0" data-event="properties">Описание</li>
     </ul>
 
     {#each ENTITY_CATEGORIES as name}
@@ -246,7 +236,6 @@
                 oncontextmenu={addSubentity}
                 >
                 <a class="block py-1" href={`/entity/${name}/${entity.id}/${subentityUrl.value}`}>- {entity.name}</a>
-                <!--<div class="block py-1 cursor-pointer" onclick={() => goToUrl(entity.type, entity.id)}>- {entity.name}</div>-->
               </li>
             {/each}
           </ul>
@@ -258,12 +247,8 @@
 </div>
 
 <style lang="postcss">
-  /* :global(html) {
-    background-color: theme(colors.gray.100);
-  } */
-
   .selected {
-    color: blue;
+    color: var(--color2);
   }
 
   .side-panel {
